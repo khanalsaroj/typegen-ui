@@ -94,5 +94,5 @@ typegen-ui/
 
 ## 🔍 Contact
 
-- **Issues:** [Report bugs and feature requests](https://github.com/khanalsaroj/typegen-cli/issues)
+- **Issues:** [Report bugs and feature requests](https://github.com/khanalsaroj/typegenctl/issues)
 - **Developer:** Khanal Saroj (waytosarojkhanal@gmail.com)
