@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Build outputs
+.next/
+coverage/
+
+# Cache / tooling
+.cache/
+.eslintcache
+.turbo/
+
+# Logs
+*.log
+logs/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Lock files (do NOT format)
+package-lock.json
+pnpm-lock.yaml
+
+# Generated files
+*.min.css
+

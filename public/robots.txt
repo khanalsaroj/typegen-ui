@@ -1,0 +1,34 @@
+# Global rules
+User-agent: *
+Allow: /
+
+# Block unnecessary internal paths
+Disallow: /api/
+Disallow: /admin/
+Disallow: /internal/
+Disallow: /*?*
+Disallow: /*.json$
+Disallow: /*.log$
+
+# Major crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+# Performance protection
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
