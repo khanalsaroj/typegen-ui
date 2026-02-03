@@ -28,7 +28,7 @@ const features: Feature[] = [
     id: 'db-expansion',
     title: 'Expanded Database Support',
     description:
-      'Support for Oracle, Microsoft SQL Server, SQLite, and MongoDB (NoSQL) will be added to enable broader database compatibility.',
+      'Support for Oracle, SQLite, and MongoDB (NoSQL) will be added to enable broader database compatibility.',
     icon: Database,
     status: 'in_progress',
   },
