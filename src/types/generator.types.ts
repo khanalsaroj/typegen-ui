@@ -3,7 +3,7 @@ export type MapperSupportedLanguage = 'mybatis-xml' | 'mybatis-annotation';
 
 export type JavaType = 'dto' | 'record' | 'pojo';
 export type TypeScriptType = 'class' | 'interface' | 'type' | 'zod';
-export type CSharpType = 'class' | 'record' | 'dto';
+export type CSharpType = 'record' | 'dto';
 
 export type LanguageType = JavaType | TypeScriptType | CSharpType;
 export type TypeOption = {
@@ -24,7 +24,6 @@ export const TYPESCRIPT_TYPES: { value: TypeScriptType; label: string }[] = [
 ];
 
 export const CSHARP_TYPES: { value: CSharpType; label: string }[] = [
-  { value: 'class', label: 'C# Class' },
   { value: 'record', label: 'C# Record' },
   { value: 'dto', label: 'C# DTO' },
 ];
@@ -97,20 +96,20 @@ export interface TypeScriptZodAdvancedOptions {
 
 export interface CSharpRecordAdvancedOptions {
   extraSpacing: boolean;
+  camelCaseProperties: boolean;
   nullable: boolean;
   jsonPropertyName: boolean;
-  primaryConstructor: boolean;
-  withExpression: boolean;
-  positionalSyntax: boolean;
+  Positional: boolean;
+  WithInit: boolean;
 }
 
-export interface CSharpClassAdvancedOptions {
+export interface CSharpDtoAdvancedOptions {
   extraSpacing: boolean;
   nullable: boolean;
+  getter: boolean;
+  setter: boolean;
+  camelCaseProperties: boolean;
   jsonPropertyName: boolean;
-  dataAnnotations: boolean;
-  initOnlySetters: boolean;
-  propertyChangedNotify: boolean;
 }
 
 export interface MapperAdvancedOptions {
@@ -129,7 +128,7 @@ export type TypeSpecificAdvancedOptions =
   | TypeScriptClassAdvancedOptions
   | TypeScriptZodAdvancedOptions
   | CSharpRecordAdvancedOptions
-  | CSharpClassAdvancedOptions;
+  | CSharpDtoAdvancedOptions;
 
 export const JAVA_RECORD_OPTION_LABELS: Record<keyof JavaRecordAdvancedOptions, string> = {
   builder: 'Builder pattern',
@@ -202,21 +201,21 @@ export const TYPESCRIPT_ZOD_OPTION_LABELS: Record<keyof TypeScriptZodAdvancedOpt
 };
 
 export const CSHARP_RECORD_OPTION_LABELS: Record<keyof CSharpRecordAdvancedOptions, string> = {
+  camelCaseProperties: 'Use camel case',
   extraSpacing: 'Add space formatting',
-  nullable: 'Nullable reference types',
-  jsonPropertyName: 'JsonPropertyName attributes',
-  primaryConstructor: 'Primary constructor',
-  withExpression: 'With expression support',
-  positionalSyntax: 'Positional record syntax',
+  nullable: 'Enable nullable refs/value types',
+  jsonPropertyName: 'JsonPropertyName',
+  Positional: 'Positional',
+  WithInit: 'init',
 };
 
-export const CSHARP_CLASS_OPTION_LABELS: Record<keyof CSharpClassAdvancedOptions, string> = {
+export const CSHARP_CLASS_OPTION_LABELS: Record<keyof CSharpDtoAdvancedOptions, string> = {
   extraSpacing: 'Add space formatting',
   nullable: 'Nullable reference types',
+  getter: 'Add Getter',
+  setter: 'Add Setter',
+  camelCaseProperties: 'Use camel case',
   jsonPropertyName: 'JsonPropertyName attributes',
-  dataAnnotations: 'Data annotations',
-  initOnlySetters: 'Init-only setters',
-  propertyChangedNotify: 'INotifyPropertyChanged',
 };
 
 export function getTypeSpecificOptionLabels(
@@ -321,22 +320,22 @@ export function getTypeSpecificDefaultOptions(
   if (language === 'csharp') {
     if (selectedType === 'record') {
       return {
-        addSpaceFormatting: false,
+        extraSpacing: false,
+        camelCaseProperties: false,
         nullable: true,
         jsonPropertyName: false,
-        primaryConstructor: true,
-        withExpression: false,
-        positionalSyntax: false,
-      };
+        Positional: false,
+        WithInit: false,
+      } satisfies CSharpRecordAdvancedOptions;
     }
     return {
-      addSpaceFormatting: false,
+      extraSpacing: false,
       nullable: true,
       jsonPropertyName: false,
-      dataAnnotations: false,
-      initOnlySetters: false,
-      propertyChangedNotify: false,
-    };
+      getter: false,
+      setter: false,
+      camelCaseProperties: false,
+    } satisfies CSharpDtoAdvancedOptions;
   }
 
   return {};
@@ -389,9 +388,8 @@ export const DEFAULT_GENERATOR_SETTINGS: GeneratorSettings = {
     },
   },
   csharp: {
-    selectedType: 'class',
+    selectedType: 'dto',
     typeConfigs: {
-      class: getDefaultTypeConfig('csharp', 'class'),
       record: getDefaultTypeConfig('csharp', 'record'),
       dto: getDefaultTypeConfig('csharp', 'dto'),
     },

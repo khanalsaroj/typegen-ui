@@ -19,8 +19,8 @@ const getShortLabel = (key: string): string => {
     // Java / Lombok
     builder: 'Builder',
     builderPattern: 'Builder',
-    getter: '@Getter',
-    setter: '@Setter',
+    getter: 'Getter',
+    setter: 'Setter',
     noArgsConstructor: 'NoArgs',
     allArgsConstructor: 'AllArgs',
     data: '@Data',
@@ -46,14 +46,11 @@ const getShortLabel = (key: string): string => {
     exportDefault: 'Export default',
 
     // C#
+    camelCaseProperties: 'Camel Case',
     nullable: 'Nullable',
     jsonPropertyName: 'JsonProp',
-    primaryConstructor: 'Primary ctor',
-    withExpression: 'With expr',
-    positionalSyntax: 'Positional',
-    dataAnnotations: 'Annotations',
-    initOnlySetters: 'Init-only',
-    propertyChangedNotify: 'Notify',
+    positional: 'Positional',
+    withInit: 'Init-only',
   };
   return labels[key] || key;
 };
