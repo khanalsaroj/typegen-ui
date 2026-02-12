@@ -27,13 +27,13 @@ experience by offering an intuitive UI on top of the Typegen platform.
 
 > **Important:**
 > The UI is **not a standalone application** and should **not be deployed independently**.
-> It is provisioned, configured, and controlled by **Typegenctl **, which coordinates its integration with the Typegen
+> It is provisioned, configured, and controlled by **Typegenctl**, which coordinates its integration with the Typegen
 > Server and manages its runtime lifecycle.
 
 | How to use     | Description                                                                           |
 | :------------- | :------------------------------------------------------------------------------------ |
 | Typegenctl     | [Typegenctl GitHub](https://github.com/khanalsaroj/typegenctl?tab=readme-ov-file)     |
-| Typegen Server | [Typegen UI GitHub](https://github.com/khanalsaroj/typegen-server?tab=readme-ov-file) |
+| Typegen Server | [Typegen Server GitHub](https://github.com/khanalsaroj/typegen-server?tab=readme-ov-file) |
 
 ## ️🖼️ Usage Demo & Screenshots
 
@@ -94,5 +94,8 @@ typegen-ui/
 
 ## 🔍 Contact
 
-- **Issues:** [Report bugs and feature requests](https://github.com/khanalsaroj/typegenctl/issues)
-- **Developer:** Khanal Saroj (waytosarojkhanal@gmail.com)
+If you encounter bugs, have feature requests:
+
+- Open an issue: https://github.com/khanalsaroj/typegenctl/issues  
+- Maintainer: Khanal Saroj  
+- Email: waytosarojkhanal@gmail.com
