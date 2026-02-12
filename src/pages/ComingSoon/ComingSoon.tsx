@@ -36,7 +36,7 @@ const features: Feature[] = [
     id: 'language-expansion',
     title: 'Multi-Language Code Generation',
     description:
-      'TypeGen will support code generation for C#, Python, Kotlin, Rust, and Go, enabling use across diverse backend stacks.',
+      'TypeGen will support code generation for Python, Kotlin, Rust, and Go, enabling use across diverse backend stacks.',
     icon: Code,
     status: 'planned',
   },

@@ -29,6 +29,7 @@ import { useDatabaseConnections } from '@/hooks/useDatabaseConnections.ts';
 const languageOptions: { value: SupportedLanguage; label: string; extension: string }[] = [
   { value: 'typescript', label: 'TypeScript', extension: '.ts' },
   { value: 'java', label: 'Java', extension: '.java' },
+  { value: 'csharp', label: 'C#', extension: '.cs' },
 ];
 
 export function Generator() {
@@ -272,7 +273,7 @@ export function Generator() {
                 <div className="p-4 h-full">
                   <CodePreview
                     code={previewCode}
-                    language={targetLanguage === 'csharp' ? 'typescript' : targetLanguage}
+                    language={targetLanguage === 'csharp' ? 'C#' : targetLanguage}
                     fileName={`types${selectedLanguage?.extension}`}
                     maxHeight="100%"
                   />
