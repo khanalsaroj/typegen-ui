@@ -1,11 +1,13 @@
-export type SupportedLanguage = 'typescript' | 'java' | 'csharp';
+export type SupportedLanguage = 'typescript' | 'java' | 'csharp' | 'go' | 'python';
 export type MapperSupportedLanguage = 'mybatis-xml' | 'mybatis-annotation';
 
 export type JavaType = 'dto' | 'record' | 'pojo';
 export type TypeScriptType = 'class' | 'interface' | 'type' | 'zod';
 export type CSharpType = 'record' | 'dto';
+export type GOTypes = 'struct' | 'dto';
+export type PythonTypes = 'dataclass' | 'pydantic' | 'class' | 'typed_dict';
 
-export type LanguageType = JavaType | TypeScriptType | CSharpType;
+export type LanguageType = JavaType | TypeScriptType | CSharpType | GOTypes | PythonTypes;
 export type TypeOption = {
   value: LanguageType;
   label: string;
@@ -26,6 +28,15 @@ export const TYPESCRIPT_TYPES: { value: TypeScriptType; label: string }[] = [
 export const CSHARP_TYPES: { value: CSharpType; label: string }[] = [
   { value: 'record', label: 'C# Record' },
   { value: 'dto', label: 'C# DTO' },
+];
+
+export const GO_TYPES: { value: GOTypes; label: string }[] = [{ value: 'struct', label: 'Struct' }];
+
+export const PYTHON_TYPES: { value: PythonTypes; label: string }[] = [
+  { value: 'dataclass', label: 'Data class' },
+  { value: 'pydantic', label: 'Pydantic' },
+  { value: 'class', label: 'Class' },
+  { value: 'typed_dict', label: 'Typed Dict' },
 ];
 
 export interface JavaRecordAdvancedOptions {
@@ -118,6 +129,58 @@ export interface MapperAdvancedOptions {
   insert?: boolean;
   update?: boolean;
   delete?: boolean;
+}
+
+export interface GoStructAdvancedOptions {
+  jsonTags: boolean; // add `json:"field"`
+  omitempty: boolean; // `json:"field,omitempty"`
+  pointerFields: boolean; // use *type for optional fields
+  exportFields: boolean; // capitalize fields (public)
+  comments: boolean; // add field comments
+  validateTags: boolean; // `validate:"required"`
+  dbTags: boolean; // `db:"column_name"`
+  mapstructureTags: boolean; // for config decoding
+  extraSpacing: boolean;
+}
+
+export interface PythonCommonOptions {
+  optionalFields: boolean;
+  comments: boolean;
+  docstrings: boolean;
+  extraSpacing: boolean;
+}
+
+export interface PythonDataclassOptions extends PythonCommonOptions {
+  defaultValues: boolean;
+  frozen: boolean;
+  slots: boolean;
+  kwOnly: boolean; // Python 3.10+
+  order: boolean; // generate comparison methods
+  repr: boolean; // include __repr__
+  eq: boolean; // equality methods
+  unsafeHash: boolean;
+}
+
+export interface PythonPydanticOptions extends PythonCommonOptions {
+  defaultValues: boolean;
+  ormMode: boolean;
+  validation: boolean;
+  aliasGenerator: boolean;
+  allowPopulationByFieldName: boolean;
+  useEnumValues: boolean;
+  strictTypes: boolean;
+  arbitraryTypesAllowed: boolean;
+}
+
+export interface PythonClassOptions extends PythonCommonOptions {
+  defaultValues: boolean;
+  initMethod: boolean; // generate __init__
+  reprMethod: boolean; // generate __repr__
+  eqMethod: boolean; // generate __eq__
+}
+
+export interface PythonTypedDictOptions extends PythonCommonOptions {
+  total: boolean; // required vs optional fields
 }
 
 export type TypeSpecificAdvancedOptions =
@@ -218,6 +281,67 @@ export const CSHARP_CLASS_OPTION_LABELS: Record<keyof CSharpDtoAdvancedOptions, 
   jsonPropertyName: 'JsonPropertyName attributes',
 };
 
+export const GO_STRUCT_OPTION_LABELS: Record<keyof GoStructAdvancedOptions, string> = {
+  jsonTags: 'JSON Tags',
+  omitempty: 'Omit Empty Fields',
+  pointerFields: 'Use Pointer Fields',
+  exportFields: 'Export Fields (Public)',
+  comments: 'Add Comments',
+  validateTags: 'Validation Tags',
+  dbTags: 'Database Tags',
+  mapstructureTags: 'Mapstructure Tags',
+  extraSpacing: 'Extra Spacing',
+};
+
+export const PYTHON_DATACLASS_OPTION_LABELS: Record<keyof PythonDataclassOptions, string> = {
+  optionalFields: 'Optional Fields',
+  comments: 'Add Comments',
+  docstrings: 'Add Docstrings',
+  extraSpacing: 'Extra Spacing',
+  defaultValues: 'Default Values',
+  frozen: 'Immutable (Frozen)',
+  slots: 'Use Slots',
+  kwOnly: 'Keyword-only Fields',
+  order: 'Enable Ordering',
+  repr: 'Generate __repr__',
+  eq: 'Enable Equality (__eq__)',
+  unsafeHash: 'Unsafe Hash',
+};
+
+export const PYTHON_PYDANTIC_OPTION_LABELS: Record<keyof PythonPydanticOptions, string> = {
+  optionalFields: 'Optional Fields',
+  comments: 'Add Comments',
+  docstrings: 'Add Docstrings',
+  extraSpacing: 'Extra Spacing',
+  defaultValues: 'Default Values',
+  ormMode: 'ORM Mode',
+  validation: 'Enable Validation',
+  aliasGenerator: 'Alias Generator (camelCase ↔ snake_case)',
+  allowPopulationByFieldName: 'Allow Population by Field Name',
+  useEnumValues: 'Use Enum Values',
+  strictTypes: 'Strict Types',
+  arbitraryTypesAllowed: 'Allow Arbitrary Types',
+};
+
+export const PYTHON_CLASS_OPTION_LABELS: Record<keyof PythonClassOptions, string> = {
+  optionalFields: 'Optional Fields',
+  comments: 'Add Comments',
+  docstrings: 'Add Docstrings',
+  extraSpacing: 'Extra Spacing',
+  defaultValues: 'Default Values',
+  initMethod: 'Generate __init__',
+  reprMethod: 'Generate __repr__',
+  eqMethod: 'Generate __eq__',
+};
+
+export const PYTHON_TYPED_DICT_OPTION_LABELS: Record<keyof PythonTypedDictOptions, string> = {
+  optionalFields: 'Optional Fields',
+  comments: 'Add Comments',
+  docstrings: 'Add Docstrings',
+  extraSpacing: 'Extra Spacing',
+  total: 'All Fields Required (total=True)',
+};
+
 export function getTypeSpecificOptionLabels(
   language: SupportedLanguage,
   selectedType: LanguageType,
@@ -249,6 +373,23 @@ export function getTypeSpecificOptionLabels(
     return CSHARP_CLASS_OPTION_LABELS;
   }
 
+  if (language === 'go') {
+    return GO_STRUCT_OPTION_LABELS;
+  }
+  if (language === 'python') {
+    if (selectedType === 'dataclass') {
+      return PYTHON_DATACLASS_OPTION_LABELS;
+    }
+    if (selectedType === 'pydantic') {
+      return PYTHON_PYDANTIC_OPTION_LABELS;
+    }
+    if (selectedType === 'class') {
+      return PYTHON_CLASS_OPTION_LABELS;
+    }
+    if (selectedType === 'typed_dict') {
+      return PYTHON_TYPED_DICT_OPTION_LABELS;
+    }
+  }
   return {};
 }
 
@@ -338,6 +479,91 @@ export function getTypeSpecificDefaultOptions(
     } satisfies CSharpDtoAdvancedOptions;
   }
 
+  if (language === 'go') {
+    if (selectedType === 'struct') {
+      return {
+        jsonTags: false,
+        omitempty: true,
+        pointerFields: true,
+        exportFields: true,
+        comments: false,
+        validateTags: true,
+        dbTags: true,
+        mapstructureTags: true,
+        extraSpacing: false,
+      } satisfies GoStructAdvancedOptions;
+    }
+    return {
+      jsonTags: false,
+      omitempty: false,
+      pointerFields: true,
+      exportFields: true,
+      comments: true,
+      validateTags: true,
+      dbTags: true,
+      mapstructureTags: true,
+      extraSpacing: false,
+    } satisfies GoStructAdvancedOptions;
+  }
+
+  if (language === 'python') {
+    if (selectedType === 'dataclass') {
+      return {
+        optionalFields: false,
+        defaultValues: false,
+        frozen: false,
+        slots: true,
+        kwOnly: false,
+        order: false,
+        repr: true,
+        eq: true,
+        unsafeHash: false,
+        comments: false,
+        docstrings: false,
+        extraSpacing: false,
+      } satisfies PythonDataclassOptions;
+    }
+
+    if (selectedType === 'pydantic') {
+      return {
+        optionalFields: true,
+        defaultValues: false,
+        ormMode: true,
+        validation: true,
+        aliasGenerator: false,
+        allowPopulationByFieldName: true,
+        useEnumValues: true,
+        strictTypes: false,
+        arbitraryTypesAllowed: false,
+        comments: false,
+        docstrings: false,
+        extraSpacing: false,
+      } satisfies PythonPydanticOptions;
+    }
+
+    if (selectedType === 'class') {
+      return {
+        optionalFields: true,
+        defaultValues: true,
+        initMethod: false,
+        reprMethod: true,
+        eqMethod: false,
+        comments: false,
+        docstrings: false,
+        extraSpacing: false,
+      } satisfies PythonClassOptions;
+    }
+
+    if (selectedType === 'typed_dict') {
+      return {
+        optionalFields: false,
+        total: false,
+        comments: false,
+        docstrings: false,
+        extraSpacing: false,
+      } satisfies PythonTypedDictOptions;
+    }
+  }
   return {};
 }
 
@@ -356,6 +582,8 @@ export interface GeneratorSettings {
   java: LanguageTypeSettings & { selectedType: JavaType };
   typescript: LanguageTypeSettings & { selectedType: TypeScriptType };
   csharp: LanguageTypeSettings & { selectedType: CSharpType };
+  go: LanguageTypeSettings & { selectedType: GOTypes };
+  python: LanguageTypeSettings & { selectedType: PythonTypes };
 }
 
 export function getTypeConfigKey(language: SupportedLanguage, type: LanguageType): string {
@@ -392,6 +620,22 @@ export const DEFAULT_GENERATOR_SETTINGS: GeneratorSettings = {
     typeConfigs: {
       record: getDefaultTypeConfig('csharp', 'record'),
       dto: getDefaultTypeConfig('csharp', 'dto'),
+    },
+  },
+  go: {
+    selectedType: 'struct',
+    typeConfigs: {
+      record: getDefaultTypeConfig('go', 'struct'),
+      dto: getDefaultTypeConfig('go', 'dto'),
+    },
+  },
+  python: {
+    selectedType: 'dataclass',
+    typeConfigs: {
+      record: getDefaultTypeConfig('python', 'dataclass'),
+      pydantic: getDefaultTypeConfig('python', 'pydantic'),
+      class: getDefaultTypeConfig('python', 'class'),
+      typed_dict: getDefaultTypeConfig('python', 'typed_dict'),
     },
   },
 };

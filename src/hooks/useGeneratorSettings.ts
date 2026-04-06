@@ -43,6 +43,8 @@ export function useGeneratorSettings() {
           java: ensureLanguageSettings(parsed.java, 'java'),
           typescript: ensureLanguageSettings(parsed.typescript, 'typescript'),
           csharp: ensureLanguageSettings(parsed.csharp, 'csharp'),
+          go: ensureLanguageSettings(parsed.go, 'go'),
+          python: ensureLanguageSettings(parsed.python, 'python'),
         };
       }
     } catch (e) {
