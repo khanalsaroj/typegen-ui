@@ -30,13 +30,13 @@ const features: Feature[] = [
     description:
       'Support for Oracle, SQLite, and MongoDB (NoSQL) will be added to enable broader database compatibility.',
     icon: Database,
-    status: 'in_progress',
+    status: 'planned',
   },
   {
     id: 'language-expansion',
     title: 'Multi-Language Code Generation',
     description:
-      'TypeGen will support code generation for Python, Kotlin, Rust, and Go, enabling use across diverse backend stacks.',
+      'TypeGen will expand to support Kotlin, Rust, PHP, Swift, and Dart, enabling seamless code generation across a wide range of backend and cross-platform ecosystems.',
     icon: Code,
     status: 'planned',
   },

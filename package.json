@@ -42,7 +42,7 @@
     "@radix-ui/react-tooltip": "^1.2.7",
     "@tanstack/react-query": "^5.83.0",
     "@vitejs/plugin-react": "^5.1.2",
-    "axios": "^1.13.2",
+    "axios": "1.13.5",
     "baseline-browser-mapping": "^2.9.15",
     "caniuse-lite": "^1.0.30001765",
     "class-variance-authority": "^0.7.1",

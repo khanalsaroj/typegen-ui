@@ -1,6 +1,14 @@
 import { cn } from '@/lib/utils';
-import { CSHARP_TYPES, LanguageType, SupportedLanguage, TypeOption } from '@/types/generator.types';
-import { JAVA_TYPES, TYPESCRIPT_TYPES } from '@/types/generator.types';
+import {
+  CSHARP_TYPES,
+  GO_TYPES,
+  JAVA_TYPES,
+  LanguageType,
+  PYTHON_TYPES,
+  SupportedLanguage,
+  TypeOption,
+  TYPESCRIPT_TYPES,
+} from '@/types/generator.types';
 
 interface TypeSelectorProps {
   language: SupportedLanguage;
@@ -17,6 +25,10 @@ export function TypeSelector({ language, selectedType, onTypeChange }: TypeSelec
         return TYPESCRIPT_TYPES;
       case 'csharp':
         return CSHARP_TYPES;
+      case 'go':
+        return GO_TYPES;
+      case 'python':
+        return PYTHON_TYPES;
     }
   };
 

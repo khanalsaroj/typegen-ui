@@ -30,6 +30,8 @@ const languageOptions: { value: SupportedLanguage; label: string; extension: str
   { value: 'typescript', label: 'TypeScript', extension: '.ts' },
   { value: 'java', label: 'Java', extension: '.java' },
   { value: 'csharp', label: 'C#', extension: '.cs' },
+  { value: 'go', label: 'Go', extension: '.go' },
+  { value: 'python', label: 'Python', extension: '.py' },
 ];
 
 export function Generator() {

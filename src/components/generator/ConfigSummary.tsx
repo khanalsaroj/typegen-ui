@@ -51,6 +51,58 @@ const getShortLabel = (key: string): string => {
     jsonPropertyName: 'JsonProp',
     positional: 'Positional',
     withInit: 'Init-only',
+
+    // =========================
+    // Go
+    // =========================
+    jsonTags: 'JSON tags',
+    omitempty: 'Omit empty',
+    pointerFields: 'Pointers',
+    exportFields: 'Exported',
+    validateTags: 'Validate',
+    dbTags: 'DB tags',
+    mapstructureTags: 'MapStruct',
+
+    // =========================
+    // Python - Common
+    // =========================
+    optionalFields: 'Optional',
+    docstrings: 'Docstring',
+
+    // =========================
+    // Python - Dataclass
+    // =========================
+    defaultValues: 'Defaults',
+    frozen: 'Frozen',
+    slots: 'Slots',
+    kwOnly: 'KW-only',
+    order: 'Order',
+    repr: 'Repr',
+    eq: 'Equality',
+    unsafeHash: 'Unsafe hash',
+
+    // =========================
+    // Python - Pydantic
+    // =========================
+    ormMode: 'ORM mode',
+    validation: 'Validation',
+    aliasGenerator: 'Alias',
+    allowPopulationByFieldName: 'Populate by name',
+    useEnumValues: 'Enum values',
+    strictTypes: 'Strict types',
+    arbitraryTypesAllowed: 'Arbitrary types',
+
+    // =========================
+    // Python - Class
+    // =========================
+    initMethod: 'Init',
+    reprMethod: 'Repr',
+    eqMethod: 'Equality',
+
+    // =========================
+    // Python - TypedDict
+    // =========================
+    total: 'Total',
   };
   return labels[key] || key;
 };
